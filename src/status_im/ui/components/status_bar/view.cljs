@@ -86,7 +86,7 @@
   (let [{:keys [type]} (get-config view-id)
         {:keys [background-color bar-style hidden
                 network-activity-indicator-visible
-                translucent]}
+                translucent] :as conf}
         (case type
           :main styles/status-bar-main
           :transparent styles/status-bar-transparent
@@ -97,6 +97,7 @@
           :wallet styles/status-bar-wallet
           :wallet-tab styles/status-bar-wallet-tab
           styles/status-bar-default)]
+    (println :FOO type conf)
     (when background-color
       (.setBackgroundColor react/status-bar-class (clj->js background-color)))
     (when bar-style
