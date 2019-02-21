@@ -45,6 +45,8 @@
     :bootnodes-settings              {:type :main}
     :fleet-settings                  {:type :main}
     :log-level-settings              {:type :main}
+    :stickers-pack-modal             {:type :main}
+    :show-extension-modal            {:type :main}
     :wallet                          {:type :wallet-tab}
     :wallet-stack                    {:type :wallet-tab}
     :profile-qr-viewer               {:type :modal-white}
@@ -64,6 +66,7 @@
     :wallet-onboarding-setup-modal   {:type :modal-wallet}
     :wallet-send-transaction-modal   {:type :modal-wallet}
     :wallet-settings-assets          {:type :modal-wallet}
+    :wallet-sign-message-modal       {:type :modal-wallet}
     :wallet-settings-hook            {:type :wallet}
     :wallet-transaction-sent         {:type :transparent}
     :wallet-transaction-sent-modal   {:type :modal-wallet}
@@ -86,7 +89,7 @@
   (let [{:keys [type]} (get-config view-id)
         {:keys [background-color bar-style hidden
                 network-activity-indicator-visible
-                translucent] :as conf}
+                translucent]}
         (case type
           :main styles/status-bar-main
           :transparent styles/status-bar-transparent
@@ -97,7 +100,6 @@
           :wallet styles/status-bar-wallet
           :wallet-tab styles/status-bar-wallet-tab
           styles/status-bar-default)]
-    (println :FOO type conf)
     (when background-color
       (.setBackgroundColor react/status-bar-class (clj->js background-color)))
     (when bar-style
