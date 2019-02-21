@@ -13,7 +13,8 @@
    [status-im.ui.screens.routing.chat-stack :as chat-stack]
    [status-im.ui.screens.routing.wallet-stack :as wallet-stack]
    [status-im.ui.screens.routing.profile-stack :as profile-stack]
-   [status-im.ui.components.bottom-bar.core :as bottom-bar]))
+   [status-im.ui.components.bottom-bar.core :as bottom-bar]
+   [status-im.ui.components.status-bar.view :as status-bar]))
 
 (defn wrap [view-id component]
   "Wraps screen with main view and adds navigation-events component"
@@ -25,6 +26,7 @@
         {:on-will-focus
          (fn []
            (log/debug :on-will-focus view-id)
+           (status-bar/set-status-bar view-id)
            (re-frame/dispatch [:screens/on-will-focus view-id]))}]])))
 
 (defn wrap-modal [modal-view component]
