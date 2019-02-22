@@ -1,6 +1,7 @@
 (ns status-im.ui.components.status-bar.view
   (:require [status-im.ui.components.react :as react]
-            [status-im.ui.components.status-bar.styles :as styles]))
+            [status-im.ui.components.status-bar.styles :as styles]
+            [status-im.utils.platform :as platform]))
 
 (defn status-bar [{:keys [type flat?]}]
   (let [view-style
@@ -70,7 +71,7 @@
     :wallet-settings-hook            {:type :wallet}
     :wallet-transaction-sent         {:type :transparent}
     :wallet-transaction-sent-modal   {:type :modal-wallet}
-    :wallet-transactions-filter      {:type :modal-wallet}}
+    :wallet-transactions-filter      {:type :main}}
    view-id))
 
 (defn set-status-bar
@@ -100,7 +101,7 @@
           :wallet styles/status-bar-wallet
           :wallet-tab styles/status-bar-wallet-tab
           styles/status-bar-default)]
-    (when background-color
+    (when (and background-color platform/android?)
       (.setBackgroundColor react/status-bar-class (clj->js background-color)))
     (when bar-style
       (.setBarStyle react/status-bar-class (clj->js bar-style)))
